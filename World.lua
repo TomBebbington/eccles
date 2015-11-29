@@ -25,7 +25,7 @@ do
       local v
       for i = 1, #self.fast_systems do
         v = self.fast_systems[i]
-        if not v.passive then
+        if not (v.passive) then
           v:update(dt)
         end
       end

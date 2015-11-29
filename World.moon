@@ -62,7 +62,7 @@ class World
 		local v
 		for i = 1, #@fast_systems
 			v = @fast_systems[i]
-			if not v.passive
+			unless v.passive
 				v\update dt
 	--- remove the entity id from this world
 	-- @param self the world
