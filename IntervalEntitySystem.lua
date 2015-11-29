@@ -1,7 +1,7 @@
 local EntitySystem = require('eccles.EntitySystem')
 local IntervalEntitySystem
 do
-  local _parent_0 = System
+  local _parent_0 = EntitySystem
   local _base_0 = {
     update = function(self, dt)
       self.left = self.left - dt

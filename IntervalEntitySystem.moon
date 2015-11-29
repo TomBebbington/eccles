@@ -4,7 +4,7 @@
 
 EntitySystem = require 'eccles.EntitySystem'
 
-class IntervalEntitySystem extends System
+class IntervalEntitySystem extends EntitySystem
 	--- make a new system
 	-- @param self the system
 	-- @param world the world to add the system to
