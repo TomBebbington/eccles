@@ -13,7 +13,7 @@ class EntitySystem extends System
 	-- @param depends the systems this depends on
 	new: (world, aspect, depends) =>
 		super world, depends
-		if aspect == nil or aspect.__class ~= Aspect
+		if aspect == nil or aspect.__class.__name ~= 'Aspect'
 			error "An aspect is required to construct #{@__class.__name}"
 		@aspect = aspect
 		@cache = {}

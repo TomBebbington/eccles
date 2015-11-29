@@ -51,7 +51,7 @@ do
   local _class_0 = setmetatable({
     __init = function(self, world, aspect, depends)
       _parent_0.__init(self, world, depends)
-      if aspect == nil or aspect.__class ~= Aspect then
+      if aspect == nil or aspect.__class.__name ~= 'Aspect' then
         error("An aspect is required to construct " .. tostring(self.__class.__name))
       end
       self.aspect = aspect
