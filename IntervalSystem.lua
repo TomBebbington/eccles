@@ -1,35 +1,19 @@
-local System = require('eccles.System')
-local sleep
-if love ~= nil then
-  sleep = love.timer.sleep
-else
-  local time = os.time
-  sleep = function(s)
-    local start = time()
-    while (time() - start) < s do
-      local _ = nil
-    end
-  end
-end
 local IntervalSystem
 do
   local _parent_0 = System
   local _base_0 = {
     initialize = function(self)
-      local interval = self.interval
-      self.coroutine = coroutine.create(function()
-        while true do
-          sleep(interval)
-          self:update(interval)
-        end
-      end)
-      coroutine.resume(self.coroutine)
+      _parent_0.initialize(self)
       self.passive = true
     end,
-    dispose = function(self)
-      self.coroutine = nil
-    end,
-    sleep = sleep
+    update = function(self, dt)
+      local interval = self.interval
+      self.elapsed = self.elapsed + dt
+      if self.elapsed > interval then
+        _parent_0.update(self, interval)
+        self.elapsed = self.elapsed - interval
+      end
+    end
   }
   _base_0.__index = _base_0
   setmetatable(_base_0, _parent_0.__base)
@@ -39,6 +23,7 @@ do
         error("An interval is required to construct " .. tostring(self.__class.__name))
       end
       self.interval = interval
+      self.elapsed = 0
       return _parent_0.__init(self, world, depends)
     end,
     __base = _base_0,
