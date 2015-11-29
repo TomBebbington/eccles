@@ -28,9 +28,27 @@ class World
 					error "System ##{i} does not have a name"
 				v self
 		for i = 1, #@fast_systems do
-			v = @fast_systems[i]
-			print "Initializing #{v.__class.__name}"
-			v\initialize!
+			@fast_systems[i]\initialize!
+	--- set a system in the world
+	-- @param self the world
+	-- @param system the system to be set
+	set_system: (system) =>
+		name = system.__class.__name
+		if @systems[name] ~= nil
+			@systems[name]\dispose!
+			table.remove @fast_systems, @systems[name]
+		@systems[name] = system
+		table.insert @fast_systems, system
+		system\initialize!
+
+	--- remove a system from the world by its name
+	-- @param self the world
+	-- @param name the name of the system to remove
+	remove_system: (name) =>
+		system = @systems[name]
+		table.remove world.systems, name
+		table.remove @fast_systems, system
+		system\dispose!
 
 	--- make a new entity with the components given
 	-- @param self the world

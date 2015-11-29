@@ -27,6 +27,9 @@ class System
 			self[name] = @world.systems[name]
 			if self[name] == nil
 				error "No system found for #{name}"
+	--- dispose the system's resources
+	-- @param self the system
+	dispose: () =>
 	--- notify the system that an entity has been added to the world
 	-- @param self the system
 	-- @param id the entity that has been added

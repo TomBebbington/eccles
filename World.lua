@@ -2,6 +2,22 @@ local mp = require('MessagePack')
 local World
 do
   local _base_0 = {
+    set_system = function(self, system)
+      local name = system.__class.__name
+      if self.systems[name] ~= nil then
+        self.systems[name]:dispose()
+        table.remove(self.fast_systems, self.systems[name])
+      end
+      self.systems[name] = system
+      table.insert(self.fast_systems, system)
+      return system:initialize()
+    end,
+    remove_system = function(self, name)
+      local system = self.systems[name]
+      table.remove(world.systems, name)
+      table.remove(self.fast_systems, system)
+      return system:dispose()
+    end,
     create = function(self, config)
       local free = table.remove(self.free_spaces)
       local id = free ~= nil and free or #self.entities + 1
@@ -128,9 +144,7 @@ do
         end
       end
       for i = 1, #self.fast_systems do
-        v = self.fast_systems[i]
-        print("Initializing " .. tostring(v.__class.__name))
-        v:initialize()
+        self.fast_systems[i]:initialize()
       end
     end,
     __base = _base_0,

@@ -27,11 +27,14 @@ class IntervalSystem extends System
 
 	initialize: () =>
 		interval = @interval
-		c = coroutine.create () ->
+		@coroutine = coroutine.create () ->
 			while true
 				sleep interval
 				@update interval
-		coroutine.resume c
+		coroutine.resume @coroutine
 		@passive = true
+
+	dispose: () =>
+		@coroutine = nil
 
 	sleep: sleep

@@ -6,14 +6,17 @@ do
   local _base_0 = {
     initialize = function(self)
       local interval = self.interval
-      local c = coroutine.create(function()
+      self.coroutine = coroutine.create(function()
         while true do
           sleep(interval)
           self:update(interval)
         end
       end)
-      coroutine.resume(c)
+      coroutine.resume(self.coroutine)
       self.passive = true
+    end,
+    dispose = function(self)
+      self.coroutine = nil
     end
   }
   _base_0.__index = _base_0

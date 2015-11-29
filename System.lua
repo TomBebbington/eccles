@@ -15,6 +15,7 @@ do
         end
       end
     end,
+    dispose = function(self) end,
     entity_added = function(self, id) end,
     entity_removed = function(self, id) end,
     update = function(self, dt) end
