@@ -3,7 +3,7 @@ do
   local _obj_0 = require('util')
   pluralize, remove_value = _obj_0.pluralize, _obj_0.remove_value
 end
-local System = require('System')
+local System = require('eccles.System')
 local EntitySystem
 do
   local _parent_0 = System

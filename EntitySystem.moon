@@ -3,7 +3,7 @@
 -- @classmod EntitySystem
 import pluralize, remove_value from require 'util'
 
-System = require 'System'
+System = require 'eccles.System'
 
 class EntitySystem extends System
 	--- make a new system
