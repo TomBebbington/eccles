@@ -3,8 +3,10 @@
 -- @classmod EntitySystem
 
 EntitySystem = require 'eccles.EntitySystem'
+IntervalSystem = require 'eccles.IntervalSystem'
 
-class IntervalEntitySystem extends EntitySystem
+
+class IntervalEntitySystem extends System
 	--- make a new system
 	-- @param self the system
 	-- @param world the world to add the system to
@@ -15,16 +17,13 @@ class IntervalEntitySystem extends EntitySystem
 		if interval == nil
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
-		@elapsed = 0
-		super world, aspect, depends
+		super world, aspect, true, depends
 
 	initialize: () =>
-		super !
-		@passive = true
-
-	update: (dt) =>
 		interval = @interval
-		@elapsed += dt
-		if @elapsed > interval
-			super interval
-			@elapsed -= interval
+		c = coroutine.create () ->
+			while true
+				sleep interval
+				@update interval
+		coroutine.resume c
+		super!

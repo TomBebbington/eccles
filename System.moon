@@ -6,11 +6,11 @@ class System
 	-- @param self the system
 	-- @param world the world to add the system to
 	-- @param depends the systems this depends on
-	new: (world, depends = {}) =>
+	new: (world, passive = false, depends = {}) =>
 		if world == nil or world.__class == nil or world.__class.__name ~= 'World'
 			error "A world is required to construct #{@__class.__name}"
 		@world = world
-		@passive = false
+		@passive = passive
 		@depends = depends
 
 		world.systems[@__class.__name] = self

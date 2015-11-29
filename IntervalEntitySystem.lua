@@ -1,19 +1,19 @@
 local EntitySystem = require('eccles.EntitySystem')
+local IntervalSystem = require('eccles.IntervalSystem')
 local IntervalEntitySystem
 do
-  local _parent_0 = EntitySystem
+  local _parent_0 = System
   local _base_0 = {
     initialize = function(self)
-      _parent_0.initialize(self)
-      self.passive = true
-    end,
-    update = function(self, dt)
       local interval = self.interval
-      self.elapsed = self.elapsed + dt
-      if self.elapsed > interval then
-        _parent_0.update(self, interval)
-        self.elapsed = self.elapsed - interval
-      end
+      local c = coroutine.create(function()
+        while true do
+          sleep(interval)
+          self:update(interval)
+        end
+      end)
+      coroutine.resume(c)
+      return _parent_0.initialize(self)
     end
   }
   _base_0.__index = _base_0
@@ -24,8 +24,7 @@ do
         error("An interval is required to construct " .. tostring(self.__class.__name))
       end
       self.interval = interval
-      self.elapsed = 0
-      return _parent_0.__init(self, world, aspect, depends)
+      return _parent_0.__init(self, world, aspect, true, depends)
     end,
     __base = _base_0,
     __name = "IntervalEntitySystem",

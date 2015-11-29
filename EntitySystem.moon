@@ -10,9 +10,10 @@ class EntitySystem extends System
 	-- @param self the system
 	-- @param world the world to add the system to
 	-- @param aspect the aspect to match entities against
+	-- @param passive if the system is passive or not
 	-- @param depends the systems this depends on
-	new: (world, aspect, depends) =>
-		super world, depends
+	new: (world, aspect, passive, depends) =>
+		super world, passive, depends
 		if aspect == nil or aspect.__class.__name ~= 'Aspect'
 			error "An aspect is required to construct #{@__class.__name}"
 		@aspect = aspect

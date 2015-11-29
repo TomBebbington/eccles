@@ -22,7 +22,10 @@ do
   }
   _base_0.__index = _base_0
   local _class_0 = setmetatable({
-    __init = function(self, world, depends)
+    __init = function(self, world, passive, depends)
+      if passive == nil then
+        passive = false
+      end
       if depends == nil then
         depends = { }
       end
@@ -30,7 +33,7 @@ do
         error("A world is required to construct " .. tostring(self.__class.__name))
       end
       self.world = world
-      self.passive = false
+      self.passive = passive
       self.depends = depends
       world.systems[self.__class.__name] = self
       return table.insert(world.fast_systems, self)
