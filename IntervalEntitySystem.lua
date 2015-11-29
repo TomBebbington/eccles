@@ -20,7 +20,7 @@ do
       end
       self.interval = interval
       self.left = interval
-      return _parent_0.__init(self, world, aspect, interval, depends)
+      return _parent_0.__init(self, world, aspect, depends)
     end,
     __base = _base_0,
     __name = "IntervalEntitySystem",

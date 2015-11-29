@@ -16,7 +16,7 @@ class IntervalEntitySystem extends EntitySystem
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
 		@left = interval
-		super world, aspect, interval, depends
+		super world, aspect, depends
 
 	--- update the system with a delta time
 	-- @param self the system
