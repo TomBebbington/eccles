@@ -1,11 +1,6 @@
-Aspect = require 'Aspect'
-EntitySystem = require 'EntitySystem'
-System = require 'System'
-World = require 'World'
-
 {
-	:Aspect,
-	:EntitySystem,
-	:System,
-	:World
+	Aspect: require 'eccles.Aspect',
+	EntitySystem: require 'eccles.EntitySystem',
+	System: require 'eccles.System',
+	World: require 'eccles.World'
 }

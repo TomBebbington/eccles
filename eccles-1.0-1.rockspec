@@ -19,10 +19,10 @@ dependencies = {
 build = {
 	type = "builtin",
 	modules = {
-		["eccles.Aspect"] = ".build/Aspect.lua",
-		["eccles.EntitySystem"] = ".build/EntitySystem.lua",
-		["eccles.System"] = ".build/System.lua",
-		["eccles.World"] = ".build/World.lua",
-		["eccles"] = ".build/eccles.lua"
+		["eccles.Aspect"] = "Aspect.lua",
+		["eccles.EntitySystem"] = "EntitySystem.lua",
+		["eccles.System"] = "System.lua",
+		["eccles.World"] = "World.lua",
+		["eccles"] = "eccles.lua"
 	},
 }
