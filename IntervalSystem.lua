@@ -11,8 +11,10 @@ local ffi = require_opt('ffi')
 local posix = require_opt('posix')
 local sleep
 if ffi ~= nil then
-  ffi.cdef('unsigned int sleep(unsigned int seconds);')
-  sleep = ffi.C.sleep
+  ffi.cdef('unsigned int usleep(unsigned int microseconds);')
+  sleep = function(s)
+    return ffi.C.sleep((s / 1000000))
+  end
 elseif posix ~= nil then
   sleep = posix.sleep
 else
@@ -39,6 +41,7 @@ do
       end
       self.interval = interval
       self.coroutine = coroutine.create(function()
+        print("every " .. tostring(interval))
         while true do
           sleep(interval)
           self:update(interval)

@@ -11,8 +11,8 @@ System = require 'eccles.System'
 ffi = require_opt 'ffi'
 posix = require_opt 'posix'
 sleep = if ffi ~= nil
-		ffi.cdef 'unsigned int sleep(unsigned int seconds);'
-		ffi.C.sleep
+		ffi.cdef 'unsigned int usleep(unsigned int microseconds);'
+		(s) -> ffi.C.sleep (s / 1000000)
 	elseif posix ~= nil
 		posix.sleep
 	else
@@ -34,6 +34,7 @@ class IntervalSystem extends System
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
 		@coroutine = coroutine.create () ->
+			print "every #{interval}"
 			while true
 				sleep interval
 				@update interval
