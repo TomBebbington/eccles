@@ -17,19 +17,13 @@ class IntervalEntitySystem extends EntitySystem
 		if interval == nil
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
-		@left = interval
-		@coroutine = coroutine.create () ->
-			sleep = IntervalSystem.sleep
+		super world, aspect, interval, depends
+
+	initialize: () =>
+		interval = @interval
+		c = coroutine.create () ->
 			while true
 				sleep interval
 				@update interval
-		coroutine.resume @coroutine
-		super world, aspect, depends
+		coroutine.resume c
 		@passive = true
-
-
-
-
-
-
-

@@ -23,12 +23,15 @@ class IntervalSystem extends System
 		if interval == nil
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
-		@coroutine = coroutine.create () ->
+		super world, depends
+
+	initialize: () =>
+		interval = @interval
+		c = coroutine.create () ->
 			while true
 				sleep interval
 				@update interval
-		coroutine.resume @coroutine
-		super world, depends
+		coroutine.resume c
 		@passive = true
 
 	sleep: sleep

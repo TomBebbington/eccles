@@ -15,6 +15,17 @@ local IntervalSystem
 do
   local _parent_0 = System
   local _base_0 = {
+    initialize = function(self)
+      local interval = self.interval
+      local c = coroutine.create(function()
+        while true do
+          sleep(interval)
+          self:update(interval)
+        end
+      end)
+      coroutine.resume(c)
+      self.passive = true
+    end,
     sleep = sleep
   }
   _base_0.__index = _base_0
@@ -25,15 +36,7 @@ do
         error("An interval is required to construct " .. tostring(self.__class.__name))
       end
       self.interval = interval
-      self.coroutine = coroutine.create(function()
-        while true do
-          sleep(interval)
-          self:update(interval)
-        end
-      end)
-      coroutine.resume(self.coroutine)
-      _parent_0.__init(self, world, depends)
-      self.passive = true
+      return _parent_0.__init(self, world, depends)
     end,
     __base = _base_0,
     __name = "IntervalSystem",
