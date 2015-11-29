@@ -1,11 +1,3 @@
-local require_opt
-require_opt = function(name)
-  local module = nil
-  pcall(function()
-    module = require(name)
-  end)
-  return module
-end
 local System = require('eccles.System')
 local sleep
 if love ~= nil then
@@ -34,14 +26,14 @@ do
       end
       self.interval = interval
       self.coroutine = coroutine.create(function()
-        print("every " .. tostring(interval))
         while true do
           sleep(interval)
           self:update(interval)
         end
       end)
+      coroutine.resume(self.coroutine)
+      _parent_0.__init(self, world, depends)
       self.passive = true
-      return _parent_0.__init(self, world, depends)
     end,
     __base = _base_0,
     __name = "IntervalSystem",

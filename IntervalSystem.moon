@@ -24,11 +24,11 @@ class IntervalSystem extends System
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
 		@coroutine = coroutine.create () ->
-			print "every #{interval}"
 			while true
 				sleep interval
 				@update interval
-		@passive = true
+		coroutine.resume @coroutine
 		super world, depends
+		@passive = true
 
 	sleep: sleep
