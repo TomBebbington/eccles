@@ -28,6 +28,8 @@ class System
 			self[f] = @world.systems[v]
 			if self[f] == nil
 				error "No system found for #{v}"
+			else
+				print "Loaded #{f} into #{@__class.__name}"
 	--- dispose the system's resources
 	-- @param self the system
 	dispose: () =>

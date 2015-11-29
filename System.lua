@@ -13,6 +13,8 @@ do
         self[f] = self.world.systems[v]
         if self[f] == nil then
           error("No system found for " .. tostring(v))
+        else
+          print("Loaded " .. tostring(f) .. " into " .. tostring(self.__class.__name))
         end
       end
     end,
