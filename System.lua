@@ -32,6 +32,9 @@ do
       if depends == nil then
         depends = { }
       end
+      if type(passive ~= 'boolean') then
+        error('Passive should be boolean')
+      end
       if world == nil or world.__class == nil or world.__class.__name ~= 'World' then
         error("A world is required to construct " .. tostring(self.__class.__name))
       end
