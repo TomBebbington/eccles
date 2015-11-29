@@ -24,11 +24,10 @@ class System
 		@depends = nil
 		for i = 1, #entities
 			@entity_added entities[i]
-		for i = 1, #depends
-			name = depends[i]
-			self[name] = @world.systems[name]
-			if self[name] == nil
-				error "No system found for #{name}"
+		for f, v in pairs depends
+			self[f] = @world.systems[v]
+			if self[f] == nil
+				error "No system found for #{v}"
 	--- dispose the system's resources
 	-- @param self the system
 	dispose: () =>

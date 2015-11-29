@@ -9,11 +9,10 @@ do
       for i = 1, #entities do
         self:entity_added(entities[i])
       end
-      for i = 1, #depends do
-        local name = depends[i]
-        self[name] = self.world.systems[name]
-        if self[name] == nil then
-          error("No system found for " .. tostring(name))
+      for f, v in pairs(depends) do
+        self[f] = self.world.systems[v]
+        if self[f] == nil then
+          error("No system found for " .. tostring(v))
         end
       end
     end,
