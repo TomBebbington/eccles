@@ -12,7 +12,7 @@ ffi = require_opt 'ffi'
 posix = require_opt 'posix'
 sleep = if ffi ~= nil
 		ffi.cdef 'unsigned int usleep(unsigned int microseconds);'
-		(s) -> ffi.C.sleep (s / 1000000)
+		(s) -> ffi.C.sleep (s * 1000000)
 	elseif posix ~= nil
 		posix.sleep
 	else
