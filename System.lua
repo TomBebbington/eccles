@@ -2,8 +2,10 @@ local System
 do
   local _base_0 = {
     initialize = function(self)
+      print("Initializing " .. tostring(self.__class.__name))
       local entities = self.world.entities
       local depends = self.depends
+      self.depends = nil
       for i = 1, #entities do
         self:entity_added(entities[i])
       end

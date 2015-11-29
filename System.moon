@@ -18,8 +18,10 @@ class System
 	--- initialize the system
 	-- @param self the system
 	initialize: () =>
+		print "Initializing #{@__class.__name}"
 		entities = @world.entities
 		depends = @depends
+		@depends = nil
 		for i = 1, #entities
 			@entity_added entities[i]
 		for i = 1, #depends
