@@ -24,8 +24,8 @@ class IntervalEntitySystem extends EntitySystem
 	update: (dt) =>
 		@left -= dt
 		if @left <= 0
-			@left = interval + @left
-			super interval
+			@left = @interval + @left
+			super @interval
 
 
 

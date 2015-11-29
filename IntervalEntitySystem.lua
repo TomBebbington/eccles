@@ -6,8 +6,8 @@ do
     update = function(self, dt)
       self.left = self.left - dt
       if self.left <= 0 then
-        self.left = interval + self.left
-        return _parent_0.update(self, interval)
+        self.left = self.interval + self.left
+        return _parent_0.update(self, self.interval)
       end
     end
   }
