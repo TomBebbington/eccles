@@ -1,8 +1,7 @@
 package = "eccles"
 version = "1.0-1"
 source = {
-	url = "https://github.com/TomBebbington/eccles",
-	tag = "v1.0",
+	url = "git://github.com/TomBebbington/eccles.git"
 }
 description = {
 	summary = "A simple entity component system",
@@ -13,15 +12,17 @@ description = {
 	license = "MIT"
 }
 dependencies = {
-	"lua ~> 5.3",
-	"lua-messagepack ~> 0.3.3-1"
+	"lua >= 5.1",
+	"lua-messagepack",
+	"moonscript"
 }
 build = {
 	type = "builtin",
 	modules = {
-		Aspect = ".build/Aspect.lua",
-		System = ".build/System.lua",
-		EntitySystem = ".build/EntitySystem.lua",
-		World = ".build/World.lua"
-	}
+		["eccles.Aspect"] = "Aspect.moon",
+		["eccles.EntitySystem"] = "EntitySystem.moon",
+		["eccles.System"] = "System.moon",
+		["eccles.World"] = "World.moon",
+		["eccles"] = "eccles.moon"
+	},
 }
