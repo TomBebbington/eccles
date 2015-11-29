@@ -1,5 +1,5 @@
 ----
--- logic to run against components 
+-- logic to run
 -- @classmod System
 class System
 	--- make a new system

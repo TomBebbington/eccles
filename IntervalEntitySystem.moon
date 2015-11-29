@@ -2,6 +2,8 @@
 -- logic to run against components matching a certain aspect every interval
 -- @classmod EntitySystem
 
+
+IntervalSystem = require 'eccles.IntervalSystem'
 EntitySystem = require 'eccles.EntitySystem'
 
 class IntervalEntitySystem extends EntitySystem
@@ -16,16 +18,13 @@ class IntervalEntitySystem extends EntitySystem
 			error "An interval is required to construct #{@__class.__name}"
 		@interval = interval
 		@left = interval
+		@coroutine = coroutine.create () ->
+			sleep = IntervalSystem.sleep
+			while true
+				sleep interval
+				@update interval
+		@passive = true
 		super world, aspect, depends
-
-	--- update the system with a delta time
-	-- @param self the system
-	-- @param dt the elapsed time from the last call in seconds
-	update: (dt) =>
-		@left -= dt
-		if @left <= 0
-			@left = @interval + @left
-			super @interval
 
 
 
