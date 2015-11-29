@@ -1,3 +1,5 @@
+# Compiles Moonscript sources
+*.moon
 # Compiled Lua sources
 luac.out
 
