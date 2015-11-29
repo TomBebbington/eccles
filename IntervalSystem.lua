@@ -7,15 +7,9 @@ require_opt = function(name)
   return module
 end
 local System = require('eccles.System')
-local nanosleep = require_opt('posix.time.nanosleep')
-for f, v in pairs(posix) do
-  print(f, v)
-end
 local sleep
-if nanosleep ~= nil then
-  sleep = function(s)
-    return nanosleep(s * 1000000000)
-  end
+if love ~= nil then
+  sleep = love.timer.sleep
 else
   local time = os.time
   sleep = function(s)

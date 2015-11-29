@@ -2,17 +2,9 @@
 -- logic to run every interval
 -- @classmod EntitySystem
 
-require_opt = (name) ->
-	module = nil
-	pcall () -> module = require name
-	module
-
 System = require 'eccles.System'
-nanosleep = require_opt 'posix.time.nanosleep'
-for f, v in pairs posix
-	print f, v
-sleep = if nanosleep ~= nil
-		(s) -> nanosleep s * 1000000000
+sleep = if love ~= nil
+		love.timer.sleep
 	else
 		time = os.time
 		(s) ->

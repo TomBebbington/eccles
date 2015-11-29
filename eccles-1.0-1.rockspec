@@ -14,8 +14,7 @@ description = {
 dependencies = {
 	"lua >= 5.1",
 	"lua-messagepack",
-	"moonscript",
-	"luaposix"
+	"moonscript"
 }
 build = {
 	type = "builtin",
