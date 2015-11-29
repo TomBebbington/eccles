@@ -20,8 +20,9 @@ do
           self:update(interval)
         end
       end)
+      coroutine.resume(self.coroutine)
+      _parent_0.__init(self, world, aspect, depends)
       self.passive = true
-      return _parent_0.__init(self, world, aspect, depends)
     end,
     __base = _base_0,
     __name = "IntervalEntitySystem",

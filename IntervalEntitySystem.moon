@@ -23,8 +23,9 @@ class IntervalEntitySystem extends EntitySystem
 			while true
 				sleep interval
 				@update interval
-		@passive = true
+		coroutine.resume @coroutine
 		super world, aspect, depends
+		@passive = true
 
 
 
