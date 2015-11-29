@@ -50,18 +50,12 @@ do
   setmetatable(_base_0, _parent_0.__base)
   local _class_0 = setmetatable({
     __init = function(self, world, aspect, depends)
-      if depends == nil then
-        depends = { }
-      end
-      if world == nil or world.__class ~= World then
-        error("A world is required to construct " .. tostring(self.__class.__name))
-      end
+      _parent_0.__init(self, world, depends)
       if aspect == nil or aspect.__class ~= Aspect then
         error("An aspect is required to construct " .. tostring(self.__class.__name))
       end
       self.aspect = aspect
       self.cache = { }
-      return _parent_0.__init(self, world, depends)
     end,
     __base = _base_0,
     __name = "EntitySystem",

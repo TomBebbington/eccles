@@ -11,14 +11,12 @@ class EntitySystem extends System
 	-- @param world the world to add the system to
 	-- @param aspect the aspect to match entities against
 	-- @param depends the systems this depends on
-	new: (world, aspect, depends = {}) =>
-		if world == nil or world.__class ~= World
-			error "A world is required to construct #{@__class.__name}"
+	new: (world, aspect, depends) =>
+		super world, depends
 		if aspect == nil or aspect.__class ~= Aspect
 			error "An aspect is required to construct #{@__class.__name}"
 		@aspect = aspect
 		@cache = {}
-		super world, depends
 
 	--- initialize the system
 	-- @param self the system
