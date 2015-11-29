@@ -8,13 +8,11 @@ require_opt = (name) ->
 	module
 
 System = require 'eccles.System'
-ffi = require_opt 'ffi'
-posix = require_opt 'posix'
-sleep = if ffi ~= nil
-		ffi.cdef 'unsigned int usleep(unsigned int microseconds);'
-		(s) -> ffi.C.sleep (s * 1000000)
-	elseif posix ~= nil
-		posix.sleep
+nanosleep = require_opt 'posix.time.nanosleep'
+for f, v in pairs posix
+	print f, v
+sleep = if nanosleep ~= nil
+		(s) -> nanosleep s * 1000000000
 	else
 		time = os.time
 		(s) ->

@@ -7,16 +7,15 @@ require_opt = function(name)
   return module
 end
 local System = require('eccles.System')
-local ffi = require_opt('ffi')
-local posix = require_opt('posix')
+local nanosleep = require_opt('posix.time.nanosleep')
+for f, v in pairs(posix) do
+  print(f, v)
+end
 local sleep
-if ffi ~= nil then
-  ffi.cdef('unsigned int usleep(unsigned int microseconds);')
+if nanosleep ~= nil then
   sleep = function(s)
-    return ffi.C.sleep((s * 1000000))
+    return nanosleep(s * 1000000000)
   end
-elseif posix ~= nil then
-  sleep = posix.sleep
 else
   local time = os.time
   sleep = function(s)
