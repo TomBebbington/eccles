@@ -39,6 +39,7 @@ class World
 			table.remove @fast_systems, @systems[name]
 		@systems[name] = system
 		table.insert @fast_systems, system
+		system.world = self
 		system\initialize!
 
 	--- remove a system from the world by its name
@@ -48,6 +49,7 @@ class World
 		system = @systems[name]
 		table.remove world.systems, name
 		table.remove @fast_systems, system
+		system.world = nil
 		system\dispose!
 
 	--- make a new entity with the components given

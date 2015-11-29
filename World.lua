@@ -10,12 +10,14 @@ do
       end
       self.systems[name] = system
       table.insert(self.fast_systems, system)
+      system.world = self
       return system:initialize()
     end,
     remove_system = function(self, name)
       local system = self.systems[name]
       table.remove(world.systems, name)
       table.remove(self.fast_systems, system)
+      system.world = nil
       return system:dispose()
     end,
     create = function(self, config)
