@@ -1,3 +1,10 @@
+local insert_all
+insert_all = function(src, dest)
+  local start = #dest
+  for i = 1, #src do
+    dest[start + i] = src[i]
+  end
+end
 local Aspect
 do
   local _base_0 = {

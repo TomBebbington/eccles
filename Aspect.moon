@@ -1,6 +1,11 @@
 ----
 -- a filter to match entities against based on their components
 -- @classmod Aspect
+insert_all = (src, dest) ->
+	start = #dest
+	for i = 1, #src
+		dest[start + i] = src[i]
+
 class Aspect
 	--- make a new aspect with the given conditions
 	-- @param self the aspect
