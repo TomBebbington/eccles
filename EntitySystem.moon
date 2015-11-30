@@ -1,9 +1,25 @@
 ----
 -- logic to run against components matching a certain aspect
 -- @classmod EntitySystem
-import pluralize, remove_value from require 'util'
 
 System = require 'eccles.System'
+
+pluralize = (word) ->
+	return switch string.sub(word, -1, -1)
+		when 'y'
+			string.sub(word, 1, -2) .. 'ies'
+		when 's', 'c', 'ch', 'sh'
+			word .. 'es'
+		else
+			word .. 's'
+
+remove_value = (array, value) ->
+	for i, v in ipairs array
+		if v == value
+			table.remove array, i
+			return v
+	nil
+
 
 class EntitySystem extends System
 	--- make a new system

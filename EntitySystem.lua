@@ -1,9 +1,25 @@
-local pluralize, remove_value
-do
-  local _obj_0 = require('util')
-  pluralize, remove_value = _obj_0.pluralize, _obj_0.remove_value
-end
 local System = require('eccles.System')
+local pluralize
+pluralize = function(word)
+  local _exp_0 = string.sub(word, -1, -1)
+  if 'y' == _exp_0 then
+    return string.sub(word, 1, -2) .. 'ies'
+  elseif 's' == _exp_0 or 'c' == _exp_0 or 'ch' == _exp_0 or 'sh' == _exp_0 then
+    return word .. 'es'
+  else
+    return word .. 's'
+  end
+end
+local remove_value
+remove_value = function(array, value)
+  for i, v in ipairs(array) do
+    if v == value then
+      table.remove(array, i)
+      return v
+    end
+  end
+  return nil
+end
 local EntitySystem
 do
   local _parent_0 = System
