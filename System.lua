@@ -1,5 +1,6 @@
 local System
 do
+  local _class_0
   local _base_0 = {
     initialize = function(self)
       print("Initializing " .. tostring(self.__class.__name))
@@ -24,7 +25,7 @@ do
     update = function(self, dt) end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, world, passive, depends)
       if passive == nil then
         passive = false
@@ -33,7 +34,7 @@ do
         depends = { }
       end
       if type(passive ~= 'boolean') then
-        error('Passive should be boolean')
+        error("Passive should be boolean, but is " .. tostring(type(passive)))
       end
       if world == nil or world.__class == nil or world.__class.__name ~= 'World' then
         error("A world is required to construct " .. tostring(self.__class.__name))
