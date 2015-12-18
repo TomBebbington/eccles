@@ -5,29 +5,37 @@ bit = require 'bit'
 bor = bit.bor
 band = bit.band
 
+to_set: (world, list) ->
+	ids, set = world.ids, 0
+	local curr
+	for i = 1, #list do
+		curr = list[i]
+		if ids[curr] == nil
+			ids[curr] = #ids
+		set = bor set, ids[curr]
+	set
+
 class Aspect
 	--- make a new aspect with the given conditions
 	-- @param world the world to use ids from
-	new: (world) =>
+	new: (world, all = {}, one = {}, exclude = {}) =>
 		@world = world
-		@_all = 0
-		@_one = 0
-		@_exclude = 0
+		ids = world.component_ids
+		@_all = to_set world, all
+		@_one = to_set world, one
+		@_exclude = to_set world, exclude
 	--- set the components that must all be in the entity
 	-- @param self the aspect
 	all: (...) =>
-		for i = 1, #args
-			@_all = bor @_all, args[i]
+		@_all = bor @_all, (to_set @world, args)
 	--- set the components that at least one of must be in the entity
 	-- @param self the aspect
 	one: (...) =>
-		for i = 1, #args
-			@_one = bor @_one, args[i]
+		@_one = bor @_one, (to_set @world, args)
 	--- set the components that must not be in the entity
 	-- @param self the aspect
 	none: (...) =>
-		for i = 1, #args
-			@_none = bor @_none, args[i]
+		@_none = bor @_none, (to_set @world, args)
 	--- check if the entity matches the aspect
 	-- @param self the aspect
 	-- @param id the entity's id
