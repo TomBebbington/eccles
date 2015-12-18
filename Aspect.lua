@@ -1,20 +1,19 @@
 local bit = require('bit')
 local bor = bit.bor
 local band = bit.band
-local _ = {
-  to_set = function(world, list)
-    local ids, set = world.ids, 0
-    local curr
-    for i = 1, #list do
-      curr = list[i]
-      if ids[curr] == nil then
-        ids[curr] = #ids
-      end
-      set = bor(set, ids[curr])
+local to_set
+to_set = function(world, list)
+  local ids, set = world.ids, 0
+  local curr
+  for i = 1, #list do
+    curr = list[i]
+    if ids[curr] == nil then
+      ids[curr] = #ids
     end
-    return set
+    set = bor(set, ids[curr])
   end
-}
+  return set
+end
 local Aspect
 do
   local _class_0
