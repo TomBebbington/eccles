@@ -7,8 +7,6 @@ class System
 	-- @param world the world to add the system to
 	-- @param depends the systems this depends on
 	new: (world, passive = false, depends = {}) =>
-		if type passive ~= 'boolean'
-			error "Passive should be boolean, but is #{type passive}"
 		if world == nil or world.__class == nil or world.__class.__name ~= 'World'
 			error "A world is required to construct #{@__class.__name}"
 		@world = world
