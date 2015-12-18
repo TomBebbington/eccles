@@ -3,7 +3,7 @@ local bor = bit.bor
 local band = bit.band
 local to_set
 to_set = function(world, list)
-  local ids, set = world.ids, 0
+  local ids, set = world.component_ids, 0
   local curr
   for i = 1, #list do
     curr = list[i]

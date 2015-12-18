@@ -6,7 +6,7 @@ bor = bit.bor
 band = bit.band
 
 to_set = (world, list) ->
-	ids, set = world.ids, 0
+	ids, set = world.component_ids, 0
 	local curr
 	for i = 1, #list do
 		curr = list[i]
