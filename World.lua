@@ -1,6 +1,9 @@
+local bit = require('bit')
+local band = bit.band
 local mp = require('MessagePack')
 local World
 do
+  local _class_0
   local _base_0 = {
     set_system = function(self, system)
       local name = system.__class.__name
@@ -24,14 +27,16 @@ do
       local free = table.remove(self.free_spaces)
       local id = free ~= nil and free or #self.entities + 1
       table.insert(self.entities, id)
-      self.layouts[id] = { }
+      local layout = 0
       for f, v in pairs(config) do
         if self.components[f] == nil then
           self.components[f] = { }
+          self.component_ids[f] = #self.component_ids
         end
         self.components[f][id] = v
-        self.layouts[id][f] = true
+        layout = band(layout, self.component_ids[f])
       end
+      self.layouts[id] = layout
       for i = 1, #self.fast_systems do
         self.fast_systems[i]:entity_added(id)
       end
@@ -117,9 +122,10 @@ do
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, systems)
       self.components = { }
+      self.component_ids = { }
       self.systems = { }
       self.fast_systems = { }
       self.entities = { }

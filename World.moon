@@ -1,6 +1,8 @@
 ----
 -- a container for components, systems and entities
 -- @classmod World
+bit = require 'bit'
+band = bit.band
 mp = require 'MessagePack'
 class World
 	--- constructor that takes an optional list of systems
@@ -8,6 +10,7 @@ class World
 	-- @param systems the systems to add to the world
 	new: (systems) =>
 		@components = {}
+		@component_ids = {}
 		@systems = {}
 		@fast_systems = {}
 		@entities = {}
@@ -60,12 +63,14 @@ class World
 		free = table.remove @free_spaces
 		id = free ~= nil and free or #@entities + 1
 		table.insert @entities, id
-		@layouts[id] = {}
+		layout = 0
 		for f, v in pairs config
 			if @components[f] == nil
 				@components[f] = {}
+				@component_ids[f] = #@component_ids
 			@components[f][id] = v
-			@layouts[id][f] = true
+			layout = band layout, @component_ids[f]
+		@layouts[id] = layout
 		for i = 1, #@fast_systems
 			@fast_systems[i]\entity_added id
 	--- check if the entity id is associated with the component

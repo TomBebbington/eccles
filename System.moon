@@ -14,7 +14,6 @@ class System
 		@world = world
 		@passive = passive
 		@depends = depends
-
 		world.systems[@__class.__name] = self
 		table.insert world.fast_systems, self
 	--- initialize the system

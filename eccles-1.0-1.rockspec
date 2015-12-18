@@ -20,8 +20,10 @@ build = {
 	type = "builtin",
 	modules = {
 		["eccles.Aspect"] = "Aspect.lua",
-		["eccles.EntitySystem"] = "EntitySystem.lua",
 		["eccles.System"] = "System.lua",
+		["eccles.EntitySystem"] = "EntitySystem.lua",
+		["eccles.IntervalEntitySystem"] = "IntervalEntitySystem.lua",
+		["eccles.IntervalSystem"] = "IntervalSystem.lua",
 		["eccles.World"] = "World.lua",
 		["eccles"] = "eccles.lua"
 	},

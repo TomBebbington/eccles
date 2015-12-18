@@ -2,7 +2,8 @@ local EntitySystem = require('eccles.EntitySystem')
 local IntervalSystem = require('eccles.IntervalSystem')
 local IntervalEntitySystem
 do
-  local _parent_0 = System
+  local _class_0
+  local _parent_0 = EntitySystem
   local _base_0 = {
     initialize = function(self)
       local interval = self.interval
@@ -13,18 +14,18 @@ do
         end
       end)
       coroutine.resume(c)
-      return _parent_0.initialize(self)
+      return _class_0.__parent.__base.initialize(self)
     end
   }
   _base_0.__index = _base_0
   setmetatable(_base_0, _parent_0.__base)
-  local _class_0 = setmetatable({
+  _class_0 = setmetatable({
     __init = function(self, world, aspect, interval, depends)
       if interval == nil then
         error("An interval is required to construct " .. tostring(self.__class.__name))
       end
       self.interval = interval
-      return _parent_0.__init(self, world, aspect, true, depends)
+      return _class_0.__parent.__init(self, world, aspect, true, depends)
     end,
     __base = _base_0,
     __name = "IntervalEntitySystem",
@@ -33,7 +34,10 @@ do
     __index = function(cls, name)
       local val = rawget(_base_0, name)
       if val == nil then
-        return _parent_0[name]
+        local parent = rawget(cls, "__parent")
+        if parent then
+          return parent[name]
+        end
       else
         return val
       end

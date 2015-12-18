@@ -1,56 +1,37 @@
-local insert_all
-insert_all = function(src, dest)
-  local start = #dest
-  for i = 1, #src do
-    dest[start + i] = src[i]
-  end
-end
+local bit = require('bit')
+local bor = bit.bor
+local band = bit.band
 local Aspect
 do
+  local _class_0
   local _base_0 = {
     all = function(self, ...)
-      return insert_all(args(self._all))
+      for i = 1, #args do
+        self._all = bor(self._all, args[i])
+      end
     end,
     one = function(self, ...)
-      return insert_all(args(self._one))
+      for i = 1, #args do
+        self._one = bor(self._one, args[i])
+      end
     end,
     none = function(self, ...)
-      return insert_all(args(self._none))
+      for i = 1, #args do
+        self._none = bor(self._none, args[i])
+      end
     end,
-    matches = function(self, world, id)
-      local layout = world.layouts[id]
-      for i = 1, #self._all do
-        if layout[self._all[i]] == nil then
-          return false
-        end
-      end
-      local has_one = false
-      for i = 1, #self._one do
-        has_one = has_one or (layout[self._one[i]] ~= nil)
-      end
-      for i = 1, #self._exclude do
-        if layout[self._exclude[i]] ~= nil then
-          return false
-        end
-      end
-      return (#self._one == 0 or has_one) and true
+    matches = function(self, id)
+      local layout = self.world.layouts[id]
+      return (band(layout, self._none)) == 0 and (#self._one == 0 or (band(layout, self._one)) > 0) and (band(layout, self._all)) == all
     end
   }
   _base_0.__index = _base_0
-  local _class_0 = setmetatable({
-    __init = function(self, all, one, exclude)
-      if all == nil then
-        all = { }
-      end
-      if one == nil then
-        one = { }
-      end
-      if exclude == nil then
-        exclude = { }
-      end
-      self._all = all
-      self._one = one
-      self._exclude = exclude
+  _class_0 = setmetatable({
+    __init = function(self, world)
+      self.world = world
+      self._all = 0
+      self._one = 0
+      self._exclude = 0
     end,
     __base = _base_0,
     __name = "Aspect"

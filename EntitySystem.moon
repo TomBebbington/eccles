@@ -58,7 +58,7 @@ class EntitySystem extends System
 	-- @param self the system
 	-- @param id the entity
 	matches: (id) =>
-		@aspect\matches @world, id
+		@aspect\matches id
 	--- notify the system that an entity has been added to the world
 	-- @param self the system
 	-- @param id the entity that has been added
