@@ -50,7 +50,7 @@ class EntitySystem extends System
 		local plural, v
 		components = @world.components
 		for n, id in pairs @world.component_ids
-			if band set, n == set
+			if (band set, n) == set
 				plural = pluralize n
 				if components[n] == nil
 					components[n] = {}

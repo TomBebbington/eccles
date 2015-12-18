@@ -35,7 +35,7 @@ do
       local plural, v
       local components = self.world.components
       for n, id in pairs(self.world.component_ids) do
-        if band(set, n == set) then
+        if (band(set, n)) == set then
           plural = pluralize(n)
           if components[n] == nil then
             components[n] = { }
