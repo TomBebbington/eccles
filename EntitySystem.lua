@@ -1,5 +1,5 @@
 local System = require('eccles.System')
-local band = require(('bit').band)
+local band = (require('bit')).band
 local pluralize
 pluralize = function(word)
   local _exp_0 = string.sub(word, -1, -1)

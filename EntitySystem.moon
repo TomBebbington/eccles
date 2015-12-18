@@ -3,7 +3,7 @@
 -- @classmod EntitySystem
 
 System = require 'eccles.System'
-band = require 'bit'.band
+band = (require 'bit').band
 
 pluralize = (word) ->
 	return switch string.sub(word, -1, -1)
