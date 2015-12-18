@@ -1,4 +1,5 @@
 local System = require('eccles.System')
+local band = require(('bit').band)
 local pluralize
 pluralize = function(word)
   local _exp_0 = string.sub(word, -1, -1)
@@ -30,16 +31,17 @@ do
       self:import_names(self.aspect._all)
       return self:import_names(self.aspect._one)
     end,
-    import_names = function(self, list)
+    import_names = function(self, set)
       local plural, v
       local components = self.world.components
-      for i = 1, #list do
-        v = list[i]
-        plural = pluralize(v)
-        if components[v] == nil then
-          components[v] = { }
+      for n, id in pairs(self.world.component_ids) do
+        if band(set, n == set) then
+          plural = pluralize(n)
+          if components[n] == nil then
+            components[n] = { }
+          end
+          self[plural] = components[v]
         end
-        self[plural] = components[v]
       end
     end,
     matches = function(self, id)

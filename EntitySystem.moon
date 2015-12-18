@@ -3,6 +3,7 @@
 -- @classmod EntitySystem
 
 System = require 'eccles.System'
+band = require 'bit'.band
 
 pluralize = (word) ->
 	return switch string.sub(word, -1, -1)
@@ -44,16 +45,16 @@ class EntitySystem extends System
 
 	--- import the names into the system
 	-- @param self the system
-	-- @param list the list of names to import
-	import_names: (list) =>
+	-- @param set the bitset of names to import
+	import_names: (set) =>
 		local plural, v
 		components = @world.components
-		for i = 1, #list do
-			v = list[i]
-			plural = pluralize v
-			if components[v] == nil
-				components[v] = {}
-			self[plural] = components[v]
+		for n, id in pairs @world.component_ids
+			if band set, n == set
+				plural = pluralize n
+				if components[n] == nil
+					components[n] = {}
+				self[plural] = components[v]
 	--- check if the system should run against this entity
 	-- @param self the system
 	-- @param id the entity
